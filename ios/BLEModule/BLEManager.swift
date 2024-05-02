@@ -28,12 +28,23 @@ class BLEManager: NSObject, CBCentralManagerDelegate {
     // MARK: - CBCentralManagerDelegate
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        if central.state == .poweredOn {
-            // Bluetooth is ready
-        } else {
-            // Bluetooth is not ready
-        }
+    switch central.state {
+    case .poweredOn:
+        print("Bluetooth is powered on and ready")
+    case .poweredOff:
+        print("Bluetooth is powered off")
+    case .resetting:
+        print("Bluetooth is resetting")
+    case .unauthorized:
+        print("Bluetooth usage is unauthorized")
+    case .unsupported:
+        print("Bluetooth is unsupported on this device")
+    case .unknown:
+        print("Bluetooth state is unknown")
+    @unknown default:
+        print("Unknown Bluetooth state")
     }
+}
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         // Handle discovered peripheral
